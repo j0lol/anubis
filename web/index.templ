@@ -165,13 +165,13 @@ templ index() {
 		<img
 			id="image"
 			style="width:100%;max-width:256px;"
-			src={ "/.within.website/x/cmd/anubis/static/img/pensive.webp?cacheBuster=" +
+			src={ "/.within.website/x/cmd/anubis/static/img/pensive.png?cacheBuster=" +
     anubis.Version }
 		/>
 		<img
 			style="display:none;"
 			style="width:100%;max-width:256px;"
-			src={ "/.within.website/x/cmd/anubis/static/img/happy.webp?cacheBuster=" +
+			src={ "/.within.website/x/cmd/anubis/static/img/happy.png?cacheBuster=" +
     anubis.Version }
 		/>
 		<p id="status">Loading...</p>
@@ -208,7 +208,7 @@ templ errorPage(message string) {
 		<img
 			id="image"
 			style="width:100%;max-width:256px;"
-			src={ "/.within.website/x/cmd/anubis/static/img/sad.webp?cacheBuster=" + anubis.Version }
+			src={ "/.within.website/x/cmd/anubis/static/img/sad.png?cacheBuster=" + anubis.Version }
 		/>
 		<p>{ message }.</p>
 		<button onClick="window.location.reload();">Try again</button>
