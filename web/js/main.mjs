@@ -3,9 +3,9 @@ import processSlow from "./proof-of-work-slow.mjs";
 import { testVideo } from "./video.mjs";
 
 const algorithms = {
-  "fast": processFast,
-  "slow": processSlow,
-}
+  fast: processFast,
+  slow: processSlow,
+};
 
 // from Xeact
 const u = (url = "", params = {}) => {
@@ -18,14 +18,16 @@ const u = (url = "", params = {}) => {
 };
 
 const imageURL = (mood, cacheBuster) =>
-  u(`/.within.website/x/cmd/anubis/static/img/${mood}.webp`, { cacheBuster });
+  u(`/.within.website/x/cmd/anubis/static/img/${mood}.png`, { cacheBuster });
 
 (async () => {
-  const status = document.getElementById('status');
-  const image = document.getElementById('image');
-  const title = document.getElementById('title');
-  const spinner = document.getElementById('spinner');
-  const anubisVersion = JSON.parse(document.getElementById('anubis_version').textContent);
+  const status = document.getElementById("status");
+  const image = document.getElementById("image");
+  const title = document.getElementById("title");
+  const spinner = document.getElementById("spinner");
+  const anubisVersion = JSON.parse(
+    document.getElementById("anubis_version").textContent,
+  );
 
   // const testarea = document.getElementById('testarea');
 
@@ -41,16 +43,19 @@ const imageURL = (mood, cacheBuster) =>
   //   return;
   // }
 
-  status.innerHTML = 'Calculating...';
+  status.innerHTML = "Calculating...";
 
-  const { challenge, rules } = await fetch("/.within.website/x/cmd/anubis/api/make-challenge", { method: "POST" })
-    .then(r => {
+  const { challenge, rules } = await fetch(
+    "/.within.website/x/cmd/anubis/api/make-challenge",
+    { method: "POST" },
+  )
+    .then((r) => {
       if (!r.ok) {
         throw new Error("Failed to fetch config");
       }
       return r.json();
     })
-    .catch(err => {
+    .catch((err) => {
       title.innerHTML = "Oh no!";
       status.innerHTML = `Failed to fetch config: ${err.message}`;
       image.src = imageURL("sad", anubisVersion);
@@ -84,6 +89,9 @@ const imageURL = (mood, cacheBuster) =>
 
   setTimeout(() => {
     const redir = window.location.href;
-    window.location.href = u("/.within.website/x/cmd/anubis/api/pass-challenge", { response: hash, nonce, redir, elapsedTime: t1 - t0 });
+    window.location.href = u(
+      "/.within.website/x/cmd/anubis/api/pass-challenge",
+      { response: hash, nonce, redir, elapsedTime: t1 - t0 },
+    );
   }, 250);
 })();
