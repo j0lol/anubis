@@ -3,8 +3,8 @@ name: Docker image builds
 on:
   workflow_dispatch:
   push:
-    branches: [ "main" ]
-    tags: [ "v*" ]
+    branches: ["main"]
+    tags: ["v*"]
 
 env:
   DOCKER_METADATA_SET_OUTPUT_ENV: "true"
@@ -28,32 +28,32 @@ jobs:
 
       - uses: actions/setup-go@v5
         with:
-          go-version: '1.24.x'
+          go-version: "1.24.x"
 
       - uses: ko-build/setup-ko@v0.8
 
-      - name: Log into registry 
+      - name: Log into registry
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
-          username: techarohq
+          username: j0lol
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ghcr.io/techarohq/anubis
+          images: ghcr.io/j0lol/anubis
 
       - name: Build and push
         id: build
         run: |
-          go run ./cmd/containerbuild --docker-repo ghcr.io/techarohq/anubis --slog-level debug
-      
+          go run ./cmd/containerbuild --docker-repo ghcr.io/j0lol/anubis --slog-level debug
+
       - name: Generate artifact attestation
         uses: actions/attest-build-provenance@v2
         if: ${{github.event_name == 'pull_request'}}
         with:
-          subject-name: ghcr.io/techarohq/anubis
+          subject-name: ghcr.io/j0lol/anubis
           subject-digest: ${{ steps.build.outputs.digest }}
           push-to-registry: true

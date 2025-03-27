@@ -2,7 +2,7 @@ name: Docker image builds (pull requests)
 
 on:
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 env:
   DOCKER_METADATA_SET_OUTPUT_ENV: "true"
@@ -22,7 +22,7 @@ jobs:
 
       - uses: actions/setup-go@v5
         with:
-          go-version: '1.24.x'
+          go-version: "1.24.x"
 
       - uses: ko-build/setup-ko@v0.8
 
@@ -30,12 +30,12 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ghcr.io/techarohq/anubis
+          images: ghcr.io/j0lol/anubis
 
       - name: Build and push
         id: build
         run: |
-          go run ./cmd/containerbuild --docker-repo ghcr.io/techarohq/anubis --slog-level debug
+          go run ./cmd/containerbuild --docker-repo ghcr.io/j0lol/anubis --slog-level debug
         env:
           PULL_REQUEST_ID: ${{ github.event.number }}
 
